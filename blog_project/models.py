@@ -20,7 +20,7 @@ class User(db.Model, UserMixin):
     # lazy=True - связанные записи таблиц(юзеры, посты) загруж параллельно
 
     def __repr__(self):
-        return f"Пользователь('{self.username}',' {self.email}', '{self.image_file}')"
+        return f"Пользователь('{self.username}',' {self.email}', ' {self.image_file}')"
 
 
 class Post(db.Model):

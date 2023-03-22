@@ -5,7 +5,7 @@ from blog_project.config import Config
 
 
 db = SQLAlchemy()
-login_manager = LoginManager()
+login_manager = LoginManager()  # хранит настройки с кот логинишься
 
 
 def create_app():
