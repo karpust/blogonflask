@@ -9,7 +9,7 @@ from blog_project.models import User
 
 
 class RegistrationForm(FlaskForm):
-    username = StringField('Имя пользователя', validators=[DataRequired(), Length(min=2, max=20)])
+    username = StringField('Имя пользователя:', validators=[DataRequired(), Length(min=2, max=20)])
     email = StringField('Email:', validators=[DataRequired(), Email()])
     password = PasswordField('Пароль:', validators=[DataRequired()])
     confirm_password = PasswordField('Подтвердите пароль:', validators=[DataRequired(), EqualTo('password')])
@@ -23,7 +23,7 @@ class RegistrationForm(FlaskForm):
             )
 
     def validate_email(self, email):
-        user = User.query.filter_by(email.data).first()
+        user = User.query.filter_by(email=email.data).first()
         if user:
             raise ValidationError(
                 'Этот email занят. Пожалуйста, выберите другой.'
@@ -31,15 +31,15 @@ class RegistrationForm(FlaskForm):
 
 
 class LoginForm(FlaskForm):
-    email = StringField('Email:', validators=[DataRequired(), Email()])
-    password = PasswordField('Пароль:', validators=[DataRequired()])
-    to_remember = BooleanField('Напомнить пароль')
+    email = StringField('Email: ', validators=[DataRequired(), Email()])
+    password = PasswordField('Пароль: ', validators=[DataRequired()])
+    to_remember = BooleanField('Напомнить пароль: ')
     submit = SubmitField('Войти')
 
 
-class UpdateForm(FlaskForm):
-    username = StringField('Имя пользователя', validators=[DataRequired(), Length(min=2, max=20)])
-    email = StringField('Email:', validators=[DataRequired(), Email()])
+class UpdateAccountForm(FlaskForm):
+    username = StringField('Имя пользователя: ', validators=[DataRequired(), Length(min=2, max=20)])
+    email = StringField('Email: ', validators=[DataRequired(), Email()])
     picture = FileField('Обновить фото профиля', validators=[FileAllowed('jpg', 'png')])
     submit = SubmitField('Обновить')
 
@@ -51,15 +51,15 @@ class UpdateForm(FlaskForm):
             )
 
     def validate_email(self, email):
-        user = User.query.filter_by(email.data).first()
+        user = User.query.filter_by(email=email.data).first()
         if user:
             raise ValidationError(
                 'Этот email занят. Пожалуйста, выберите другой.'
             )
 
 
-class RequestReserForm(FlaskForm):  # запрос на восст пароля проверяет тот ли это юзер
-    email = StringField('Email', validators=[DataRequired(), Email()])
+class RequestResetForm(FlaskForm):  # запрос на восст пароля проверяет тот ли это юзер
+    email = StringField('Email: ', validators=[DataRequired(), Email()])
     submit = SubmitField('Измеинть пароль')
 
     def validate_email(self, email):

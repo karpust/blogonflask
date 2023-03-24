@@ -5,9 +5,7 @@
             <h1><a href="index.html">textured<span class="logo_colour">_stars</span></a></h1>
             <h2>Simple. Contemporary. Website Template.</h2>
 
-            {% if current_user.is_authenticated %}
-            <h4>Привет, {{ current_user.username }}!</h4>
-            {% endif %}
+            <a class="nav-link nav-item navigation-links" href="{{ url_for('users.register') }}">Зарегистрироваться</a>
 
         </div>
     </div>
