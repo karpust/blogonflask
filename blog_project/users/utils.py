@@ -5,6 +5,9 @@ from flask import url_for, current_app
 
 
 def save_picture(form_picture):
+    """
+
+    """
     random_hex = token_hex(8)  # 8 байтов каждый в 2 шестнадцатир цифры
     _, f_ext = os.path.splitext(form_picture.filename)  # .[1]
     picture_fn = random_hex + f_ext

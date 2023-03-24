@@ -16,7 +16,7 @@ class User(db.Model, UserMixin):
     image_file = db.Column(db.String(20), nullable=False,  # не Null
                            default='default.png')
     password = db.Column(db.String(60), nullable=False)
-    posts = db.relationship('Post', backref='author', lazy=True)
+    posts = db.relationship('Post', backref='author', lazy=True)  # backref ?
     # backref='author' - чтобы отслеживать кто автор
     # lazy=True - связанные записи таблиц(юзеры, посты) загруж параллельно
 
