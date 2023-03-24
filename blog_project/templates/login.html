@@ -40,22 +40,6 @@
                                 {% endif %}
 
                                 <div class="form-outline mb-4">
-                                    {{ form.username.label(class="form-control-label") }}
-
-                                    {% if form.username.errors %}
-                                    {{ form.username(class="form-control form-control-lg is-invalid") }}
-                                    <div class="invalid-feedback">
-                                        {% for error in form.username.errors %}
-                                        <span>{{ error }}</span>
-                                        {% endfor %}
-                                    </div>
-                                    {% else %}
-                                    {{ form.username(class="form-control form-control-lg") }}
-                                    {% endif %}
-
-                                </div>
-
-                                <div class="form-outline mb-4">
                                     {{ form.email.label(class="form-control-label") }}
 
                                     {% if form.email.errors %}
@@ -86,17 +70,17 @@
                                 </div>
 
                                 <div class="form-outline mb-4">
-                                    {{ form.confirm_password.label(class="form-control-label") }}
+                                    {{ form.to_remember.label(class="form-control-label") }}
 
-                                    {% if form.confirm_password.errors %}
-                                    {{ form.confirm_password(class="form-control form-control-lg is-invalid") }}
+                                    {% if form.to_remember.errors %}
+                                    {{ form.to_remember(class="form-control form-control-lg is-invalid") }}
                                     <div class="invalid-feedback">
-                                        {% for error in form.confirm_password.errors %}
+                                        {% for error in form.to_remember.errors %}
                                         <span>{{ error }}</span>
                                         {% endfor %}
                                     </div>
                                     {% else %}
-                                    {{ form.confirm_password(class="form-control form-control-lg") }}
+                                    {{ form.to_remember(class="form-control form-control-lg") }}
                                     {% endif %}
                                 </div>
 
@@ -107,9 +91,9 @@
                                 </div>
 
                                 <p class="text-center text-muted mt-5 mb-0">
-                                    Уже есть аккаунт?
-                                    <a href="{{ url_for('users.login') }}" class="fw-bold text-body">
-                                        <u>Войти</u>
+                                    Нужен аккаунт?
+                                    <a href="{{ url_for('users.register') }}" class="fw-bold text-body">
+                                        <u>Зарегистроваться</u>
                                     </a>
                                 </p>
 
