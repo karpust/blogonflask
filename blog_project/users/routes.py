@@ -59,7 +59,7 @@ def account():
         current_user.email = form.email.data
         db.session.commit()  # изменили в юзера в бд
         flash('Ваш аккаунт был успешно обновлен!', 'success')
-        return redirect(url_for('users.account'))
+        return redirect(url_for('main.home'))
     elif request.method == 'GET':
         form.username.data = current_user.username  # в форме отображ старые данные, не пустая
         form.email.data = current_user.email

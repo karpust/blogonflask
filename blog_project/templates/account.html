@@ -33,7 +33,7 @@
                         <div class="card-body p-5">
                             <h2 class="text-uppercase text-center mb-5">Создайте аккаунт</h2>
 
-                            <form action="" method="POST">
+                            <form action="" enctype="multipart/form-data" method="POST">
                                 {{ form.csrf_token }}
                                 {% if form.csrf_token.errors %}
                                 <div class="warning">You have submitted an invalid CSRF token</div>
