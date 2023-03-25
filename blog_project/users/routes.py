@@ -63,9 +63,9 @@ def account():
     elif request.method == 'GET':
         form.username.data = current_user.username  # в форме отображ старые данные, не пустая
         form.email.data = current_user.email
-        page = request.args.get('page', 1, type=int)  # пагинация: список постов с 1-ой стр   ??? откуда там брать арги
-        user = User.query.filter_by(username=form.username.data).first_or_404()  # ?получаем юзера из бд
-        posts = Post.query.filter_by(author=user).order_by(Post.date_posted.desc()).paginate(page=page, per_page=5)
+    page = request.args.get('page', 1, type=int)  # пагинация: список постов с 1-ой стр   ??? откуда там брать арги
+    user = User.query.filter_by(username=form.username.data).first_or_404()  # ?получаем юзера из бд
+    posts = Post.query.filter_by(author=user).order_by(Post.date_posted.desc()).paginate(page=page, per_page=5)
     image_file = url_for('static', filename='profile_pics/' + current_user.image_file)  # ???
     return render_template('account.html', title='Аккаунт', image_file=image_file, form=form, posts=posts,
                            user=user)
