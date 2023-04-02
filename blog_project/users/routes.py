@@ -37,10 +37,14 @@ def login():
     if form.validate_on_submit():  # если 'POST'-запрос и все поля валидны:
         user = User.query.filter_by(email=form.email.data).first()  # выбрали из бд юзера по почте
 
-        # если такой юзер есть и его пароль совпадает с введенным в форму (хеши), перенаправим на главную:
+        # если такой юзер есть и его пароль совпадает с введенным в форму (хеши):
         if user and bcrypt.check_password_hash(user.password, form.password.data):
             login_user(user, remember=form.to_remember.data)
-            return redirect(url_for('main.home'))
+
+            # запоминаем стр на кот юзер был до авторизации:
+            next_page = request.args.get('next')
+            # и перенапрявляем на нее; если юзер сразу пошел логиниться, перенаправляем на все посты:
+            return redirect(next_page) if next_page else redirect(url_for('posts.allposts'))
         else:
             flash('Войти не удалось. Пожалуйста, '
                   'проверьте электронную почту и пароль', 'внимание')
@@ -66,7 +70,7 @@ def account():
     page = request.args.get('page', 1, type=int)  # пагинация: список постов с 1-ой стр   ??? откуда там брать арги
     user = User.query.filter_by(username=form.username.data).first_or_404()  # ?получаем юзера из бд
     posts = Post.query.filter_by(author=user).order_by(Post.date_posted.desc()).paginate(page=page, per_page=5)
-    image_file = url_for('static', filename='profile_pics/' + current_user.image_file)  # ???
+    image_file = url_for('static', filename='profile_pics/' + current_user.image_file)  # +-
     return render_template('account.html', title='Аккаунт', image_file=image_file, form=form, posts=posts,
                            user=user)
 
@@ -75,3 +79,11 @@ def account():
 def logout():
     logout_user()
     return redirect(url_for('main.home'))
+
+
+@users.route('/user/<string:username>')
+def user_posts(username):
+    page = request.args.get('page', 1, type=int)
+    user = User.query.filter_by(username=username).first_or_404()
+    posts = Post.query.filter_by(author=user).order_by(Post.date_posted.desc()).paginate(page=page, per_page=5)
+    return render_template('user_posts.html', posts=posts, user=user)

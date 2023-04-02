@@ -19,9 +19,11 @@ def create_app():
     # во время создания проекта
     from blog_project.main.routes import main
     from blog_project.users.routes import users
+    from blog_project.posts.routes import posts
 
     app.register_blueprint(main)  # регаем блюпринты
     app.register_blueprint(users)
+    app.register_blueprint(posts)
 
     app.config.from_object(Config)  # подключаем конфиг
 

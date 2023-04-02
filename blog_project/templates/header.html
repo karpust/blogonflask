@@ -10,6 +10,7 @@
                 <a class="nav-link nav-item navigation-links" href="{{ url_for('users.account') }}">Редактировать
                     профиль</a>
                 <a class="nav-link nav-item navigation-links" href="{{ url_for('users.logout') }}">Выйти</a>
+                <a class="nav-link nav-item navigation-links" href="{{ url_for('posts.allposts') }}">Посты</a>
                 {% else %}
                 <a class="nav-link nav-item navigation-links" href="{{ url_for('users.login') }}">Войти</a>
                 <a class="nav-link nav-item navigation-links"
