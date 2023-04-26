@@ -1,6 +1,11 @@
 from datetime import datetime
 from blog_project import db, login_manager
 from flask_login import UserMixin
+from authlib.jose import JsonWebSignature
+from flask import current_app
+import json
+
+jws = JsonWebSignature()
 
 
 @login_manager.user_loader
@@ -20,6 +25,22 @@ class User(db.Model, UserMixin):
     # связь с табл Post,тк uselist по дефолту, то постов несколько,
     # backref='author' - классу Post объявили новое свойство author
     # lazy=True is SELECT - связанные записи таблиц(юзеры, посты) загруж параллельно
+
+    def get_reset_token(self):  # used authlib instead of itsdangerous
+        key = current_app.config['SECRET_KEY']
+        payload = json.dumps({'user_id': self.id})
+        s = jws.serialize_compact(protected={'alg': 'HS256'}, payload=payload, key=key)
+        return s
+
+    @staticmethod
+    def verify_reset_token(token):
+        key = current_app.config['SECRET_KEY']
+        s = jws.deserialize_compact(token, key)['payload']  # b'{"user_id": 4}'
+        try:
+            user_id = json.loads(s)['user_id']
+        except Exception:
+            return None
+        return User.query.get(user_id)
 
     def __repr__(self):
         return f"Пользователь('{self.username}',' {self.email}', ' {self.image_file}')"

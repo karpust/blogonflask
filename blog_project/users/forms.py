@@ -1,10 +1,7 @@
 from flask_wtf import FlaskForm
 from flask_wtf.file import FileField, FileAllowed
-
 from wtforms import StringField, PasswordField, SubmitField, BooleanField
 from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError
-
-from flask_login import current_user
 from blog_project.models import User
 
 
@@ -60,7 +57,7 @@ class UpdateAccountForm(FlaskForm):
 
 class RequestResetForm(FlaskForm):  # запрос на восст пароля проверяет тот ли это юзер
     email = StringField('Email: ', validators=[DataRequired(), Email()])
-    submit = SubmitField('Измеинть пароль')
+    submit = SubmitField('Изменить пароль')
 
     def validate_email(self, email):
         user = User.query.filter_by(email=email.data).first()

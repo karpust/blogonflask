@@ -90,12 +90,19 @@
 
                                 </div>
 
-                                <p class="text-center text-muted mt-5 mb-0">
-                                    Нужен аккаунт?
-                                    <a href="{{ url_for('users.register') }}" class="fw-bold text-body">
-                                        <u>Зарегистроваться</u>
-                                    </a>
-                                </p>
+                                <div class="form-group">
+                                    {{ form.submit(class="btn btn-outline-info") }}
+                                    <small class="text-muted ml-2">
+                                        <a href="{{ url_for('users.reset_request') }}">Забыли пароль?</a>
+                                    </small>
+
+
+                                    <p class="text-center text-muted mt-5 mb-0">
+                                        Нужен аккаунт?
+                                        <a href="{{ url_for('users.register') }}" class="fw-bold text-body">
+                                            <u>Зарегистроваться</u>
+                                        </a>
+                                    </p>
 
                             </form>
 
