@@ -7,16 +7,14 @@ from blog_project import mail
 
 
 def save_picture(form_picture):
-    """
-
-    """
-    random_hex = token_hex(8)  # 8 байтов каждый в 2 шестнадцатир цифры
-    _, f_ext = os.path.splitext(form_picture.filename)  # .[1]
-    picture_fn = random_hex + f_ext
+    random_hex = token_hex(8)  # 8 байтов каждый в 2 шестнадцатир цифры: '1923b6a471070650'
+    _, f_ext = os.path.splitext(form_picture.filename)  # ('2', '.jpg')
+    picture_fn = random_hex + f_ext  # '1923b6a471070650.jpg'
     picture_path = os.path.join(current_app.root_path, 'static/profile_pics', picture_fn)
+    # 'C:\\Users\\k\\PycharmProjects\\blogonflask\\blog_project\\static/profile_pics\\1923b6a471070650.jpg'
     output_size = (150, 150)
-    i = Image.open(form_picture)
-    i.thumbnail(output_size)
+    i = Image.open(form_picture)  # <PIL.JpegImagePlugin.JpegImageFile image mode=RGB size=283x178 at 0x1EB776B6920>
+    i.thumbnail(output_size)  # <PIL.JpegImagePlugin.JpegImageFile image mode=RGB size=150x94 at 0x2015F7806D0>
     i.save(picture_path)
     return picture_fn
 

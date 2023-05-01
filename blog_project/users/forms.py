@@ -1,4 +1,5 @@
 from flask_wtf import FlaskForm
+from flask_login import current_user
 from flask_wtf.file import FileField, FileAllowed
 from wtforms import StringField, PasswordField, SubmitField, BooleanField
 from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError
@@ -41,18 +42,20 @@ class UpdateAccountForm(FlaskForm):
     submit = SubmitField('Обновить')
 
     def validate_username(self, username):
-        user = User.query.filter_by(username=username.data).first()
-        if user:
-            raise ValidationError(
-                'Это имя занято. Пожалуйста, выберите другое.'
-            )
+        if username.data != current_user.username:
+            user = User.query.filter_by(username=username.data).first()
+            if user:
+                raise ValidationError(
+                    'Юзер с таким именем уже существует. Выберите другое имя.'
+                )
 
     def validate_email(self, email):
-        user = User.query.filter_by(email=email.data).first()
-        if user:
-            raise ValidationError(
-                'Этот email занят. Пожалуйста, выберите другой.'
-            )
+        if email.data != current_user.email:
+            user = User.query.filter_by(email=email.data).first()
+            if not user:
+                raise ValidationError(
+                    'Этот email уже занят. Выберите другой.'
+                )
 
 
 class RequestResetForm(FlaskForm):  # запрос на восст пароля проверяет тот ли это юзер

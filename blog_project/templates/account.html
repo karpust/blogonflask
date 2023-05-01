@@ -1,3 +1,7 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
 <style>
     .gradient-custom-3 {
         /* fallback for old browsers */
@@ -31,7 +35,14 @@
                 <div class="col-12 col-md-9 col-lg-7 col-xl-6">
                     <div class="card" style="border-radius: 15px;">
                         <div class="card-body p-5">
-                            <h2 class="text-uppercase text-center mb-5">Создайте аккаунт</h2>
+                            <h4 class="text-uppercase text-center mb-4">мой аккаунт</h4>
+                            <div class="mb-4">
+                                <img class="rounded-circle account-img center" src="{{ image_file }}">
+                                <div class="media-body">
+<!--                                    <h3 class="account-heading">{{ current_user.username }}</h3>-->
+<!--                                    <p class="text-secondary">{{ current_user.email }}</p>-->
+                                </div>
+                            </div>
 
                             <form action="" enctype="multipart/form-data" method="POST">
                                 {{ form.csrf_token }}
@@ -41,7 +52,6 @@
 
                                 <div class="form-outline mb-4">
                                     {{ form.username.label(class="form-control-label") }}
-
                                     {% if form.username.errors %}
                                     {{ form.username(class="form-control form-control-lg is-invalid") }}
                                     <div class="invalid-feedback">
@@ -71,7 +81,6 @@
 
                                 <div class="form-outline mb-4">
                                     {{ form.picture.label(class="form-control-label") }}
-
                                     {% if form.picture.errors %}
                                     {{ form.picture(class="form-control form-control-lg is-invalid") }}
                                     <div class="invalid-feedback">
@@ -85,13 +94,11 @@
                                 </div>
 
                                 <div class="d-flex justify-content-center">
-                                    {{ form.submit(class="btn btn-success btn-block btn-lg gradient-custom-4 text-body")
+                                    {{ form.submit(class="btn btn-success btn-block btn-lg gradient-custom-4
+                                    text-body")
                                     }}
-
                                 </div>
-
                             </form>
-
                         </div>
                     </div>
                 </div>
@@ -99,3 +106,5 @@
         </div>
     </div>
 </section>
+{% endblock content %}
+
